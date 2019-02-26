@@ -20,26 +20,20 @@ c.execute('''CREATE TABLE IF NOT EXISTS Student (
             )''')
 print('Table [Student] Connected')
 
-x = ''
-Menu.getAll(x)
-Menu.getGPA(x)
-Menu.getMajor(x)
-Menu.getAdvisor(x)
-
 
 while True:
-    select = manager.menu()
+    select = Menu.menu()
 
     if select == 1:
-        manager.display()
+        Menu.displayAll()
     elif select == 2:
-        manager.insert()
+        Menu.insert()
     elif select == 3:
-        manager.update()
+        Menu.update()
     elif select == 4:
-        manager.delete()
+        Menu.delete()
     elif select == 5:
-        manager.search()
+        Menu.getMajor()
     elif select == 6:
         break
 

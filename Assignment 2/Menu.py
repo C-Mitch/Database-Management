@@ -12,8 +12,9 @@ c = conn.cursor()
 class Menu:
 
     def menu():
-        print("\nMenu:\n")
-        print('''1. Display Students\n
+        print("\nMenu:")
+        print('''
+        1. Display All Students\n
         2. Add Student\n
         3. Update Student\n
         4. Delete Student\n
@@ -21,39 +22,42 @@ class Menu:
         6. Quit''')
         while True:
             try:
-                option = int(input("Enter Option: "))
+                option = int(input("\nEnter Option: "))
                 if option > 6 or option < 1:
-                    raise Excep()
+                    raise Exception()
                 break
-            except Excep:
-                print("Please Eneter Valid Input")
+            except Exception:
+                print("Please Eneter Valid option")
         return option
 
-    def getAll(x):
+    #Option 1
+    def displayAll():
         c.execute("SELECT * FROM Student")
         result = c.fetchall()
         for x in result:
             print(x)
 
-    def getMajor(x):
+    #Option 5
+    def search():
+        getMajor()
+        getGPA()
+        getAdvisor()
+
+
+    def getMajor():
         c.execute("SELECT FirstName, LastName, Major FROM Student WHERE Major = ?", ('CPSC', ))
         result = c.fetchall()
         for x in result:
             print(x)
 
-    def getGPA(x):
+    def getGPA():
         c.execute("SELECT FirstName, LastName, GPA FROM Student WHERE GPA >= ?", (3.5, ))
         result = c.fetchall()
         for x in result:
             print(x)
 
-    def getAdvisor(x):
+    def getAdvisor():
         c.execute("SELECT FirstName, LastName, FacultyAdvisor FROM Student WHERE FacultyAdvisor = ?", ('Rene', ))
         result = c.fetchall()
         for x in result:
             print(x)
-
-
-conn.commit()
-
-conn.close()
