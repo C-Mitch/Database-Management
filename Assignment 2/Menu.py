@@ -27,7 +27,7 @@ class Menu:
                     raise Exception()
                 break
             except Exception:
-                print("Please Eneter Valid option")
+                print("Please Eneter Valid Option")
         return option
 
     #Option 1
@@ -39,25 +39,50 @@ class Menu:
 
     #Option 5
     def search():
-        getMajor()
-        getGPA()
-        getAdvisor()
-
-
-    def getMajor():
-        c.execute("SELECT FirstName, LastName, Major FROM Student WHERE Major = ?", ('CPSC', ))
-        result = c.fetchall()
-        for x in result:
-            print(x)
-
-    def getGPA():
-        c.execute("SELECT FirstName, LastName, GPA FROM Student WHERE GPA >= ?", (3.5, ))
-        result = c.fetchall()
-        for x in result:
-            print(x)
-
-    def getAdvisor():
-        c.execute("SELECT FirstName, LastName, FacultyAdvisor FROM Student WHERE FacultyAdvisor = ?", ('Rene', ))
-        result = c.fetchall()
-        for x in result:
-            print(x)
+        #Search by Major
+        while True:
+            major = input("\nSearch by Major? ('Y' / 'N') ")
+            if major.upper() == 'Y':
+                queryA = input("Enter major to search: ")
+                c.execute("SELECT FirstName, LastName, Major FROM Student WHERE Major = ?", (queryA.upper(), ))
+                result = c.fetchall()
+                for x in result:
+                    print(x)
+            elif major.upper() == 'N':
+                break
+            else:
+                print("Please Eneter Valid Option")
+        #Search by GPA
+        while True:
+            gpa = input("\nSearch by GPA? ('Y' / 'N') ")
+            if gpa.upper() == 'Y':
+                queryB = 0.0;
+                while True:
+                    try:
+                        queryB = float(input("Enter GPA to search: "))
+                        if queryB < 0.0:
+                            raise ValueError()
+                        break
+                    except ValueError:
+                        print("Enter Valid GPA Value")
+                c.execute("SELECT FirstName, LastName, GPA FROM Student WHERE GPA = ?", (queryB, ))
+                result = c.fetchall()
+                for x in result:
+                    print(x)
+            elif major.upper() == 'N':
+                break
+            else:
+                print("Please Eneter Valid Option")
+        #Search by Advisor
+        while True:
+            advisor = input("\nSearch by Advisor? ('Y' / 'N') ")
+            if advisor.upper() == 'Y':
+                queryC = input("Enter advisor to search: ")
+                c.execute("SELECT FirstName, LastName, FacultyAdvisor FROM Student WHERE FacultyAdvisor = ?", (queryC, ))
+                result = c.fetchall()
+                for x in result:
+                    print(x)
+            elif major.upper() == 'N':
+                break
+            else:
+                print("Please Eneter Valid Option")

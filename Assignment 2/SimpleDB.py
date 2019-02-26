@@ -33,7 +33,7 @@ while True:
     elif select == 4:
         Menu.delete()
     elif select == 5:
-        Menu.getMajor()
+        Menu.search()
     elif select == 6:
         break
 
