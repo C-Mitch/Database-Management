@@ -4,30 +4,27 @@
 #CPSC-408-01
 #Assignment2
 
+import sqlite3
 from Menu import Menu
 
 conn = sqlite3.connect('StudentDB.db')
 c = conn.cursor()
 
-c.execute("SELECT name FROM sqlite_master WHERE type='table'")
-test = c.fetchone()
-if test[0] != 'Student':
-    c.execute('''CREATE TABLE Student (
-                StudentId integer primary key autoincrement,
-                FirstName varchar(25),
-                LastName varchar(25),
-                GPA Numeric,
-                Major varchar(10),
-                FacultyAdvisor varchar(25)
-                )''')
-else:
-    print('Table [Student] Created')
+c.execute('''CREATE TABLE IF NOT EXISTS Student (
+            StudentId integer primary key autoincrement not null,
+            FirstName varchar(25) not null,
+            LastName varchar(25) not null,
+            GPA Numeric real not null,
+            Major varchar(10) not null,
+            FacultyAdvisor varchar(25)
+            )''')
+print('Table [Student] Connected')
 
 x = ''
-getAll(x)
-getGPA(x)
-getMajor(x)
-getAdvisor(x)
+Menu.getAll(x)
+Menu.getGPA(x)
+Menu.getMajor(x)
+Menu.getAdvisor(x)
 
 
 
