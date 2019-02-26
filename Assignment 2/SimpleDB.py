@@ -14,7 +14,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS Student (
             StudentId integer primary key autoincrement not null,
             FirstName varchar(25) not null,
             LastName varchar(25) not null,
-            GPA Numeric real not null,
+            GPA real not null,
             Major varchar(10) not null,
             FacultyAdvisor varchar(25)
             )''')
@@ -26,6 +26,22 @@ Menu.getGPA(x)
 Menu.getMajor(x)
 Menu.getAdvisor(x)
 
+
+while True:
+    select = manager.menu()
+
+    if select == 1:
+        manager.display()
+    elif select == 2:
+        manager.insert()
+    elif select == 3:
+        manager.update()
+    elif select == 4:
+        manager.delete()
+    elif select == 5:
+        manager.search()
+    elif select == 6:
+        break
 
 
 

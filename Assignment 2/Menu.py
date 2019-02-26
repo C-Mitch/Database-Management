@@ -8,9 +8,26 @@ import sqlite3
 
 conn = sqlite3.connect('StudentDB.db')
 c = conn.cursor()
+
 class Menu:
 
-
+    def menu():
+        print("\nMenu:\n")
+        print('''1. Display Students\n
+        2. Add Student\n
+        3. Update Student\n
+        4. Delete Student\n
+        5. Search Student\n
+        6. Quit''')
+        while True:
+            try:
+                option = int(input("Enter Option: "))
+                if option > 6 or option < 1:
+                    raise Excep()
+                break
+            except Excep:
+                print("Please Eneter Valid Input")
+        return option
 
     def getAll(x):
         c.execute("SELECT * FROM Student")
@@ -35,3 +52,8 @@ class Menu:
         result = c.fetchall()
         for x in result:
             print(x)
+
+
+conn.commit()
+
+conn.close()
