@@ -37,6 +37,63 @@ class Menu:
         for x in result:
             print(x)
 
+    #Option 2
+    def insert():
+        print()
+        # Loop until user confirms info
+        confirm = False
+        info = []
+        while not confirm:
+            #Input data in list
+            info.append(input("Enter First Name: "))
+            info.append(input("Enter Last Name: "))
+            x = 0.0;
+            while True:
+                try:
+                    x = float(input("Enter GPA: "))
+                    if x < 0.0:
+                        raise ValueError()
+                    break
+                except ValueError:
+                    print("Enter Valid GPA Value")
+            info.append(x)
+            m = input("Enter Major: ")
+            info.append(m.upper())
+            info.append(input("Enter Faculty Advisor: "))
+
+            # Ask user if data is correct
+            print()
+            print("First Name: ", info[0],"\nLast Name: ", info[1],
+             "\nGPA: ", info[2], "\nMajor: ", info[3], "\nFaculty Advisor: ", info[4])
+            print()
+            while True:
+                valid = input("Are these values correct? ('Y' / 'N') ")
+                if valid.upper() == "Y":
+                    confirm = True
+                    c.execute("INSERT INTO Student(FirstName, LastName, GPA, Major, FacultyAdvisor) "
+                                "VALUES(?,?,?,?,?);", info)
+                    conn.commit()
+                    print("Student entered successfully!")
+                    break
+                elif valid.upper() == "N":
+                    print()
+                    print("Please reenter values!")
+                    info.clear()
+                    break
+                else:
+                    print("Invalid option!")
+
+
+
+
+    #Option 3
+    def update():
+        pass
+
+    #Option 4
+    def delete():
+        pass
+
     #Option 5
     def search():
         #Search by Major
@@ -51,7 +108,7 @@ class Menu:
             elif major.upper() == 'N':
                 break
             else:
-                print("Please Eneter Valid Option")
+                print("Please Enter Valid Option")
         #Search by GPA
         while True:
             gpa = input("\nSearch by GPA? ('Y' / 'N') ")
@@ -72,7 +129,7 @@ class Menu:
             elif major.upper() == 'N':
                 break
             else:
-                print("Please Eneter Valid Option")
+                print("Please Enter Valid Option")
         #Search by Advisor
         while True:
             advisor = input("\nSearch by Advisor? ('Y' / 'N') ")
@@ -85,4 +142,4 @@ class Menu:
             elif major.upper() == 'N':
                 break
             else:
-                print("Please Eneter Valid Option")
+                print("Please Enter Valid Option")

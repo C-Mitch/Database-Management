@@ -37,9 +37,6 @@ while True:
     elif select == 6:
         break
 
-
-
-
 conn.commit()
 
 conn.close()
