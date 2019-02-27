@@ -40,11 +40,9 @@ class Menu:
     #Option 2
     def insert():
         print()
-        #Loop until user confirms info
         confirm = False
         info = []
-        while not confirm:
-            #Input data into list
+        while not confirm:  #Loop until user confirms info
             info.append(input("Enter First Name: "))
             info.append(input("Enter Last Name: "))
             x = 0.0;
@@ -66,7 +64,7 @@ class Menu:
             print("First Name: ", info[0],"\nLast Name: ", info[1],
              "\nGPA: ", info[2], "\nMajor: ", info[3], "\nFaculty Advisor: ", info[4])
             print()
-            while True:
+            while True:  #Confirm Values
                 valid = input("Are these values correct? ('Y' / 'N') ")
                 if valid.upper() == "Y":
                     confirm = True
@@ -86,7 +84,7 @@ class Menu:
     #Option 3
     def update():
         id = 0
-        while True:
+        while True:  #Get and Check Student ID
             try:
                 id = int(input("Enter ID to update: "))
                 break
@@ -96,7 +94,7 @@ class Menu:
         update = c.fetchall()
         if update == []:
             print('\nUpdate Failed - Student Does Not Exist')
-        else:
+        else:  #Choose Field to Update
             choice = ''
             while True:
                 choice = input("Update Major or Advisor? ('Major' / 'Advisor') ")
@@ -118,7 +116,7 @@ class Menu:
     #Option 4
     def delete():
         id = 0
-        while True:
+        while True:  #Get and Check Student ID
             try:
                 id = int(input("Enter ID to delete: "))
                 break
@@ -128,7 +126,7 @@ class Menu:
         deletion = c.fetchall()
         if deletion == []:
             print('\nDeletion Failed - Student Does Not Exist')
-        else:
+        else:  #Student Exists, Confirm Deletion
             c.execute("SELECT * from Student WHERE StudentId = {}".format(id))
             print('\n', c.fetchall())
             choice = input("\nDelete Student? ('Y' / 'N') ")
@@ -161,7 +159,7 @@ class Menu:
             gpa = input("\nSearch by GPA? ('Y' / 'N') ")
             if gpa.upper() == 'Y':
                 queryB = 0.0;
-                while True:
+                while True: #Validate Input
                     try:
                         queryB = float(input("Enter GPA to search: "))
                         if queryB < 0.0:

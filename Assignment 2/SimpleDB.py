@@ -21,7 +21,6 @@ c.execute('''CREATE TABLE IF NOT EXISTS Student (
 conn.commit()
 print('Table [Student] Connected')
 
-
 while True:
     select = Menu.menu()
 
