@@ -18,6 +18,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS Student (
             Major varchar(10) not null,
             FacultyAdvisor varchar(25)
             )''')
+conn.commit()
 print('Table [Student] Connected')
 
 
@@ -36,7 +37,5 @@ while True:
         Menu.search()
     elif select == 6:
         break
-
-conn.commit()
 
 conn.close()

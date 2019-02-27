@@ -40,11 +40,11 @@ class Menu:
     #Option 2
     def insert():
         print()
-        # Loop until user confirms info
+        #Loop until user confirms info
         confirm = False
         info = []
         while not confirm:
-            #Input data in list
+            #Input data into list
             info.append(input("Enter First Name: "))
             info.append(input("Enter Last Name: "))
             x = 0.0;
@@ -61,7 +61,7 @@ class Menu:
             info.append(m.upper())
             info.append(input("Enter Faculty Advisor: "))
 
-            # Ask user if data is correct
+            #Ask for confirmation
             print()
             print("First Name: ", info[0],"\nLast Name: ", info[1],
              "\nGPA: ", info[2], "\nMajor: ", info[3], "\nFaculty Advisor: ", info[4])
@@ -83,16 +83,63 @@ class Menu:
                 else:
                     print("Invalid option!")
 
-
-
-
     #Option 3
     def update():
-        pass
+        id = 0
+        while True:
+            try:
+                id = int(input("Enter ID to update: "))
+                break
+            except ValueError:
+                print("Enter Valid ID Value")
+        c.execute("SELECT StudentId from Student WHERE StudentId = {}".format(id))
+        update = c.fetchall()
+        if update == []:
+            print('\nUpdate Failed - Student Does Not Exist')
+        else:
+            choice = ''
+            while True:
+                choice = input("Update Major or Advisor? ('Major' / 'Advisor') ")
+                if choice.upper() == 'MAJOR':
+                    choice.capitalize()
+                    break
+                elif choice.upper() == 'ADVISOR':
+                    choice = "FACULTYADVISOR"
+                    break
+                else:
+                    print("Please Enter Valid Option")
+            val = input('\nInput New Value: ')
+
+            c.execute("UPDATE Student SET {0} = '{1}' WHERE StudentId = {2}".format(choice, val, id))
+            conn.commit()
+            print('Student Updated Successfully')
+
 
     #Option 4
     def delete():
-        pass
+        id = 0
+        while True:
+            try:
+                id = int(input("Enter ID to delete: "))
+                break
+            except ValueError:
+                print("Enter Valid ID Value")
+        c.execute("SELECT StudentId from Student WHERE StudentId = {}".format(id))
+        deletion = c.fetchall()
+        if deletion == []:
+            print('\nDeletion Failed - Student Does Not Exist')
+        else:
+            c.execute("SELECT * from Student WHERE StudentId = {}".format(id))
+            print('\n', c.fetchall())
+            choice = input("\nDelete Student? ('Y' / 'N') ")
+            if choice.upper() == 'Y':
+                c.execute("DELETE FROM Student WHERE StudentId = {}".format(id))
+                conn.commit()
+                print('\nStudent Deleted')
+            elif choice.upper() == 'N':
+                print('\nDeletion Cancled')
+            else:
+                print("Please Enter Valid Option")
 
     #Option 5
     def search():
