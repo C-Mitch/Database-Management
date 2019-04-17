@@ -11,11 +11,11 @@ from faker import Faker
 if len(sys.argv) == 3:
 	if sys.argv[2].isdigit():
 		rows = int(sys.argv[2])
-		with open(sys.argv[1], 'w') as csvFile:
+		with open(sys.argv[1], 'w', newline='') as file:
 			faker = Faker()
 			columns = ['FirstName', 'LastName', 'DateOfBirth', 'SSN',
 			'Address', 'Email', 'Country', 'Job', 'UserName', 'Password']
-			csvWriter = csv.DictWriter(csvFile, fieldnames = columns)
+			csvWriter = csv.DictWriter(file, fieldnames=columns)
 			
 			csvWriter.writeheader()
 			while rows > 0:
