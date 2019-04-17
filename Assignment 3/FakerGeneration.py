@@ -13,8 +13,8 @@ if len(sys.argv) == 3:
 		rows = int(sys.argv[2])
 		with open(sys.argv[1], 'w', newline='') as file:
 			faker = Faker()
-			columns = ['FirstName', 'LastName', 'DateOfBirth', 'SSN',
-			'Address', 'Email', 'Country', 'Job', 'UserName', 'Password']
+			columns = ['FirstName', 'LastName', 'DateOfBirth', 'SSN', 'Address',
+					'Email', 'Country', 'Job', 'JobAddress', 'UserName', 'Password', 'PID']
 			csvWriter = csv.DictWriter(file, fieldnames=columns)
 			
 			csvWriter.writeheader()
@@ -29,8 +29,10 @@ if len(sys.argv) == 3:
 				'Email': faker.email(),
                 'Country': faker.country(),
                 'Job': faker.job().replace(",", ''),
+				'JobAddress': faker.street_address(),
                 'UserName': faker.user_name(),
-                'Password': faker.password()
+                'Password': faker.password(),
+				'PID': faker.ean8()
                 })
 				rows -= 1
 				
