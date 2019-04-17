@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class DBConfigure
 {
-    public static getMySQLConnection(String ip, String db, String user, string pass)
+    public static Connection getMySQLConnection(String ip, String db, String user, String pass)
     {
         try
         {

@@ -6,30 +6,26 @@ CPSC-408-01
 Assignment3
 */
 
-import java.io.FileNotFoundException;
-/*import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.SQLException;*/
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Main
 {
-    public static void main(String[] args) throws SQLException, FileNotFoundException
+    public static void main(String[] args) throws SQLException
     {
-        /*Connection conn = DBConfigure.getMySQLConnection("35.247.56.84", "DBMain", "test", "test");
-        Connection conn = DBConfigure.getMySQLConnection("35.247.56.84", "DBMain", "rene", "LuggageCombination");*/
+        //Connection conn = DBConfigure.getMySQLConnection("35.247.56.84", "DBMain", "test", "test");
+        Connection conn = DBConfigure.getMySQLConnection("35.247.56.84", "DBMain", "rene", "LuggageCombination");
 
         try
         {
-            String filePath = "test.csv";
+            String filePath = "test1.csv";
             List<List<String>> data = CSVReader.readCSV(filePath);
 
-            DBManager manager = new DatabaseNormalizer(conn, data);
-            manager.initializeDatabase();
-            manager.populateDatabase();
-            manager.printDatabase();
+            DBManager manager = new DBManager(conn, data);
+            manager.initializeDB();
+            manager.populateDB();
+           // manager.printDatabase();
 
         }
         catch (Exception e)
@@ -43,9 +39,5 @@ public class Main
         }
 
     }
-
-}
-
-
 
 }

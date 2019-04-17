@@ -22,16 +22,17 @@ public class CSVReader
         s.useDelimiter(",");
 
         List<List<String>> columns = new ArrayList<List<String>>();
-
+        System.out.println("File Preload Start");
         while(s.hasNext())
         {
             String t = s.nextLine();
             List<String> row = Arrays.asList(t.split(","));
-
+            System.out.println(row);
             columns.add(row);
         }
         s.close();
 
+        System.out.println("File Preload Completed");
         return columns;
 
     }
