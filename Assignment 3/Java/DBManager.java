@@ -11,19 +11,23 @@ import java.util.List;
 
 public class DBManager
 {
+    // Global Variables
     private Connection conn;
     private List<List<String>> data;
+    private Boolean drop;
 
-    public DBManager(Connection c, List<List<String>> d)
+    public DBManager(Connection c, List<List<String>> d, boolean t)
     {
         this.conn = c;
         this.data = d;
+        this.drop = t;
     }
 
-    public void initializeDB() throws SQLException
+    public void initializeDB() throws SQLException // Creates tables if not exists, structured to be in 3NF
     {
-        this.dropTables();
-        System.out.println("In Initializer");
+        if(drop) this.dropTables();
+
+        System.out.println("Start Table Initializer");
         List<String> headerNames = data.get(0);
 
         PreparedStatement s = conn.prepareStatement(
@@ -33,7 +37,7 @@ public class DBManager
                         headerNames.get(1) + " VARCHAR(25)," +                  // LastName
                         headerNames.get(2) + " DATE," +                         // DOB
                         headerNames.get(3) + " VARCHAR(11)," +                  // SSN
-                        headerNames.get(7) + " VARCHAR(50)," +                  // Job
+                        headerNames.get(7) + " VARCHAR(75)," +                  // Job
                         headerNames.get(9) + " VARCHAR(25))"                    // UserName
 
         );
@@ -42,8 +46,8 @@ public class DBManager
         s = conn.prepareStatement(
                 "CREATE TABLE IF NOT EXISTS People_Locations(" +
                         headerNames.get(3) + " VARCHAR(11) PRIMARY KEY ," +     // SSN
-                        headerNames.get(6) + " VARCHAR(50)," +                  // Country
-                        headerNames.get(4) + " VARCHAR(50))"                    // Address
+                        headerNames.get(6) + " VARCHAR(75)," +                  // Country
+                        headerNames.get(4) + " VARCHAR(75))"                    // Address
 
         );
         s.executeUpdate();
@@ -52,15 +56,15 @@ public class DBManager
                 "CREATE TABLE IF NOT EXISTS Accounts(" +
                         headerNames.get(9) + " VARCHAR(25) PRIMARY KEY ," +     // UserName
                         headerNames.get(10) + " VARCHAR(25)," +                 // Pass
-                        headerNames.get(5) + " VARCHAR(50))"                    // Email
+                        headerNames.get(5) + " VARCHAR(75))"                    // Email
 
         );
         s.executeUpdate();
 
         s = conn.prepareStatement(
                 "CREATE TABLE IF NOT EXISTS Jobs_Locations(" +
-                        headerNames.get(8) + " VARCHAR(50) PRIMARY KEY ," +     // JobAddress
-                        headerNames.get(7) + " VARCHAR(50))"                    // Job
+                        headerNames.get(8) + " VARCHAR(75) PRIMARY KEY ," +     // JobAddress
+                        headerNames.get(7) + " VARCHAR(75))"                    // Job
 
         );
         s.executeUpdate();
@@ -68,20 +72,20 @@ public class DBManager
         s = conn.prepareStatement(
                 "CREATE TABLE IF NOT EXISTS ID_Address(" +
                         "Person_ID INTEGER NOT NULL ," +            // ID
-                        headerNames.get(8) + " VARCHAR(50)," +      // JobAddress
+                        headerNames.get(8) + " VARCHAR(75)," +      // JobAddress
                         "PRIMARY KEY(Person_ID, JobAddress))"
 
         );
         s.executeUpdate();
 
 
-        System.out.println("Out Initializer");
+        System.out.println("Table Initializer Complete");
         s.close();
     }
 
-    public void populateDB() throws SQLException
+    public void populateDB() throws SQLException  // Fill respective tables from passed data
     {
-        System.out.println("In Populator");
+        System.out.println("Start Table Populator");
 
         PreparedStatement s = null;
         for(int i = 1; i < data.size(); ++i)
@@ -118,7 +122,8 @@ public class DBManager
             s.executeUpdate();
             s.clearParameters();
 
-            s = conn.prepareStatement("INSERT INTO Accounts(UserName, Password, Email) VALUES(?,?,?)");
+            s = conn.prepareStatement("INSERT INTO Accounts(UserName, Password, Email) VALUES(?,?,?) " +
+                    "ON DUPLICATE KEY UPDATE UserName = values(UserName), Password = values(Password), Email = values(Email)");  // Update Info On Dupe Value
             s.setString(1, userName);
             s.setString(2, password);
             s.setString(3, email);
@@ -136,18 +141,16 @@ public class DBManager
             s.setString(2, jobAddress);
             s.executeUpdate();
             s.clearParameters();
-
-
-
-
         }
+        assert s != null;
+        s.close();
 
-        System.out.println("Out Populator");
+        System.out.println("Table Populator Complete");
     }
 
-    private void dropTables() throws SQLException
+    private void dropTables() throws SQLException // Drops tables to clear old data
     {
-        System.out.println("In Dropper");
+        System.out.println("Starting Table Dropper");
 
         PreparedStatement s = conn.prepareStatement("DROP TABLE IF EXISTS People");
         s.executeUpdate();
@@ -164,7 +167,7 @@ public class DBManager
         s = conn.prepareStatement("DROP TABLE IF EXISTS ID_Address");
         s.executeUpdate();
 
-        System.out.println("Out Dropper");
+        System.out.println("Table Dropper Completed");
         s.close();
     }
 

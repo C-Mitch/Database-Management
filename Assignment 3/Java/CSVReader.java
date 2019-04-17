@@ -19,7 +19,7 @@ public class CSVReader
     public static List<List<String>> readCSV(String filename) throws FileNotFoundException
     {
         Scanner s = new Scanner(new File(filename));
-        s.useDelimiter(",");
+        s.useDelimiter(","); // Parse via ,
 
         List<List<String>> columns = new ArrayList<List<String>>();
         System.out.println("File Preload Start");
