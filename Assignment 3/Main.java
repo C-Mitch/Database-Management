@@ -18,20 +18,18 @@ public class Main
 {
     public static void main(String[] args) throws SQLException, FileNotFoundException
     {
-        /*Connection conn = DBConfigure.getMySQLConnection("35.247.56.84", "cpsc408", "mitch213", "password");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cpsc408?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false",
-                "root", "password");*/
+        /*Connection conn = DBConfigure.getMySQLConnection("35.247.56.84", "DBMain", "test", "test");
+        Connection conn = DBConfigure.getMySQLConnection("35.247.56.84", "DBMain", "rene", "LuggageCombination");*/
 
         try
         {
             String filePath = "test.csv";
             List<List<String>> data = CSVReader.readCSV(filePath);
 
-            DatabaseNormalizer normalizer = new DatabaseNormalizer(conn, data);
-            normalizer.initDatabase();
-            normalizer.populateDatabase();
-            normalizer.printDatabase();
-
+            DBManager manager = new DatabaseNormalizer(conn, data);
+            manager.initializeDatabase();
+            manager.populateDatabase();
+            manager.printDatabase();
 
         }
         catch (Exception e)

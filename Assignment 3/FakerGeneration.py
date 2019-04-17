@@ -32,7 +32,6 @@ if len(sys.argv) == 3:
                 'UserName': faker.user_name(),
                 'Password': faker.password()
                 })
-				
 				rows -= 1
 				
 		print("File Generated Successfully")
@@ -40,4 +39,4 @@ if len(sys.argv) == 3:
 		print("Please Pass An Integer Value As The Second Argument At Execution")
 
 else:
-	print("Please A File Name And Number Of Rows To Be Generated At Execution")
+	print("Please Input A File Name And Number Of Rows To Be Generated At Execution")
