@@ -1,8 +1,8 @@
-#####Chase Mitchell
-#####002274657
-#####Mitch213@mail.chapman.edu
-#####CPSC-408-01
-#####Assignment3
+##### Chase Mitchell
+##### 002274657
+##### Mitch213@mail.chapman.edu
+##### CPSC-408-01
+##### Assignment3
 
 ### Fake Data Generator Using Faker
 Generates fake data using the [Python faker library](https://github.com/joke2k/faker).  Source is located under the Python folder.
